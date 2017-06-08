@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<EnergyCompany.Models.contract>
+
+@{
+    ViewBag.Title = "Результатики";
+}
+
+<h2>Результат запроса</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Имя клиента")
+        </th>
+        <th>
+            @Html.DisplayName("Имя тарифа")
+        </th>
+        <th>
+            @Html.DisplayName("Дата заключения")
+        </th>
+        <th>
+            @Html.DisplayName("Дата окончания")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.client.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tariff.name)
+            </td>
+           <td>
+                @Html.Raw(item.date_start.ToString("dd.MM.yyyy"))  
+            </td>   
+            <td>
+                @Html.Raw(item.date_end.ToString("dd.MM.yyyy"))
+            </td>  
+
+        </tr>
+    }
+
+</table>

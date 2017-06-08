@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище EnergyDBModel" Provider="Npgsql" ProviderManifestToken="9.2.21" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_client" Type="int4" Nullable="false" />
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payment" Type="numeric" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="adress" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="collectors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int4" Nullable="false" />
+          <Property Name="day_used" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="night_used" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contracts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_client" Type="int4" Nullable="false" />
+          <Property Name="id_tariff" Type="int4" Nullable="false" />
+          <Property Name="date_start" Type="date" Nullable="false" />
+          <Property Name="date_end" Type="date" Nullable="false" />
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tariffs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="day_price" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="night_price" Type="numeric" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_bills_clients">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="bills" Type="Self.bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_collectors_clients">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="collectors" Type="Self.collectors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="collectors">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_contracts_clients">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="contracts" Type="Self.contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contracts">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_contracts_tariffs">
+          <End Role="tariffs" Type="Self.tariffs" Multiplicity="1" />
+          <End Role="contracts" Type="Self.contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tariffs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contracts">
+              <PropertyRef Name="id_tariff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище EnergyDBModelContainer">
+          <EntitySet Name="bills" EntityType="Self.bills" Schema="public" store:Type="Tables" />
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="public" store:Type="Tables" />
+          <EntitySet Name="collectors" EntityType="Self.collectors" Schema="public" store:Type="Tables" />
+          <EntitySet Name="contracts" EntityType="Self.contracts" Schema="public" store:Type="Tables" />
+          <EntitySet Name="tariffs" EntityType="Self.tariffs" Schema="public" store:Type="Tables" />
+          <AssociationSet Name="fk_bills_clients" Association="Self.fk_bills_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_collectors_clients" Association="Self.fk_collectors_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="collectors" EntitySet="collectors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_contracts_clients" Association="Self.fk_contracts_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="contracts" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_contracts_tariffs" Association="Self.fk_contracts_tariffs">
+            <End Role="tariffs" EntitySet="tariffs" />
+            <End Role="contracts" EntitySet="contracts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EnergyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="client" Relationship="Self.fk_bills_clients" FromRole="bills" ToRole="clients" />
+          <Property Name="payment" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="bills" Relationship="Self.fk_bills_clients" FromRole="clients" ToRole="bills" />
+          <NavigationProperty Name="collectors" Relationship="Self.fk_collectors_clients" FromRole="clients" ToRole="collectors" />
+          <NavigationProperty Name="contracts" Relationship="Self.fk_contracts_clients" FromRole="clients" ToRole="contracts" />
+        </EntityType>
+        <EntityType Name="collector">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="day_used" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="night_used" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.fk_collectors_clients" FromRole="collectors" ToRole="clients" />
+        </EntityType>
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="id_tariff" Type="Int32" Nullable="false" />
+          <Property Name="date_start" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="date_end" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="client" Relationship="Self.fk_contracts_clients" FromRole="contracts" ToRole="clients" />
+          <NavigationProperty Name="tariff" Relationship="Self.fk_contracts_tariffs" FromRole="contracts" ToRole="tariffs" />
+        </EntityType>
+        <EntityType Name="tariff">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="day_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="night_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="contracts" Relationship="Self.fk_contracts_tariffs" FromRole="tariffs" ToRole="contracts" />
+        </EntityType>
+        <Association Name="fk_bills_clients">
+          <End Role="clients" Type="Self.client" Multiplicity="1" />
+          <End Role="bills" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_collectors_clients">
+          <End Role="clients" Type="Self.client" Multiplicity="1" />
+          <End Role="collectors" Type="Self.collector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="collectors">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_contracts_clients">
+          <End Role="clients" Type="Self.client" Multiplicity="1" />
+          <End Role="contracts" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contracts">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_contracts_tariffs">
+          <End Role="tariffs" Type="Self.tariff" Multiplicity="1" />
+          <End Role="contracts" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tariffs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contracts">
+              <PropertyRef Name="id_tariff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EnergyDBEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bills" EntityType="Self.bill" />
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="collectors" EntityType="Self.collector" />
+          <EntitySet Name="contracts" EntityType="Self.contract" />
+          <EntitySet Name="tariffs" EntityType="Self.tariff" />
+          <AssociationSet Name="fk_bills_clients" Association="Self.fk_bills_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_collectors_clients" Association="Self.fk_collectors_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="collectors" EntitySet="collectors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_contracts_clients" Association="Self.fk_contracts_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="contracts" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_contracts_tariffs" Association="Self.fk_contracts_tariffs">
+            <End Role="tariffs" EntitySet="tariffs" />
+            <End Role="contracts" EntitySet="contracts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище EnergyDBModelContainer" CdmEntityContainer="EnergyDBEntities3">
+          <EntitySetMapping Name="bills">
+            <EntityTypeMapping TypeName="EnergyDBModel.bill">
+              <MappingFragment StoreEntitySet="bills">
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="EnergyDBModel.client">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="collectors">
+            <EntityTypeMapping TypeName="EnergyDBModel.collector">
+              <MappingFragment StoreEntitySet="collectors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="day_used" ColumnName="day_used" />
+                <ScalarProperty Name="night_used" ColumnName="night_used" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contracts">
+            <EntityTypeMapping TypeName="EnergyDBModel.contract">
+              <MappingFragment StoreEntitySet="contracts">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_tariff" ColumnName="id_tariff" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="date_end" ColumnName="date_end" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tariffs">
+            <EntityTypeMapping TypeName="EnergyDBModel.tariff">
+              <MappingFragment StoreEntitySet="tariffs">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="day_price" ColumnName="day_price" />
+                <ScalarProperty Name="night_price" ColumnName="night_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

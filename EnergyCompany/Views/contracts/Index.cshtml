@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EnergyCompany.Models.contract>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date_start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_end)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tariff.name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_end)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tariff.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

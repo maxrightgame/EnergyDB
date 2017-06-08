@@ -1,0 +1,50 @@
+﻿@model EnergyCompany.Models.contract
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>contract</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.date_start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_end)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_end)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tariff.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tariff.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
