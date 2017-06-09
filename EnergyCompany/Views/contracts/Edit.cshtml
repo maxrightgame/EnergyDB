@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.date_start, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.date_start, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.date_start, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.date_start, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.date_end, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.date_end, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.date_end, new { htmlAttributes = new { @type = "date",@class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.date_end, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,7 +58,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Назад", "Index")
 </div>
 
 @section Scripts {

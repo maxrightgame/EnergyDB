@@ -12,6 +12,7 @@
           <Property Name="id_client" Type="int4" Nullable="false" />
           <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="id_collector" Type="int4" />
         </EntityType>
         <EntityType Name="clients">
           <Key>
@@ -61,6 +62,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_bills_collectors">
+          <End Role="collectors" Type="Self.collectors" Multiplicity="0..1" />
+          <End Role="bills" Type="Self.bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="collectors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="id_collector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_collectors_clients">
           <End Role="clients" Type="Self.clients" Multiplicity="1" />
           <End Role="collectors" Type="Self.collectors" Multiplicity="*" />
@@ -107,6 +120,10 @@
             <End Role="clients" EntitySet="clients" />
             <End Role="bills" EntitySet="bills" />
           </AssociationSet>
+          <AssociationSet Name="fk_bills_collectors" Association="Self.fk_bills_collectors">
+            <End Role="collectors" EntitySet="collectors" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
           <AssociationSet Name="fk_collectors_clients" Association="Self.fk_collectors_clients">
             <End Role="clients" EntitySet="clients" />
             <End Role="collectors" EntitySet="collectors" />
@@ -132,6 +149,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="client" Relationship="Self.fk_bills_clients" FromRole="bills" ToRole="clients" />
           <Property Name="payment" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="id_collector" Type="Int32" />
+          <NavigationProperty Name="collector" Relationship="EnergyDBModel.fk_bills_collectors" FromRole="bill" ToRole="collector" />
         </EntityType>
         <EntityType Name="client">
           <Key>
@@ -153,6 +172,7 @@
           <Property Name="day_used" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="night_used" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="client" Relationship="Self.fk_collectors_clients" FromRole="collectors" ToRole="clients" />
+          <NavigationProperty Name="bills" Relationship="EnergyDBModel.fk_bills_collectors" FromRole="collector" ToRole="bill" />
         </EntityType>
         <EntityType Name="contract">
           <Key>
@@ -246,7 +266,23 @@
             <End Role="tariffs" EntitySet="tariffs" />
             <End Role="contracts" EntitySet="contracts" />
           </AssociationSet>
+          <AssociationSet Name="fk_bills_collectors" Association="EnergyDBModel.fk_bills_collectors">
+            <End Role="collector" EntitySet="collectors" />
+            <End Role="bill" EntitySet="bills" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="fk_bills_collectors">
+          <End Type="EnergyDBModel.collector" Role="collector" Multiplicity="0..1" />
+          <End Type="EnergyDBModel.bill" Role="bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="collector">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="id_collector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -256,6 +292,7 @@
           <EntitySetMapping Name="bills">
             <EntityTypeMapping TypeName="EnergyDBModel.bill">
               <MappingFragment StoreEntitySet="bills">
+                <ScalarProperty Name="id_collector" ColumnName="id_collector" />
                 <ScalarProperty Name="payment" ColumnName="payment" />
                 <ScalarProperty Name="id_client" ColumnName="id_client" />
                 <ScalarProperty Name="id" ColumnName="id" />

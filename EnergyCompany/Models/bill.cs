@@ -24,9 +24,13 @@ public partial class bill
 
     public Nullable<decimal> payment { get; set; }
 
+    public Nullable<int> id_collector { get; set; }
+
 
 
     public virtual client client { get; set; }
+
+    public virtual collector collector { get; set; }
 
 }
 

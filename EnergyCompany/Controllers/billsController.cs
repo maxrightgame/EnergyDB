@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EnergyCompany.Models;
-
+using System.Linq;
 namespace EnergyCompany.Controllers
 {
     public class billsController : Controller
@@ -17,9 +17,67 @@ namespace EnergyCompany.Controllers
         // GET: bills
         public ActionResult Index()
         {
-            var bills = db.bills.Include(b => b.client);
+            var bills = db.bills.Include(b => b.client).Include(b => b.collector);
             return View(bills.ToList());
         }
+        class Tariff
+        {
+            public decimal day_price { get; set; }
+            public decimal night_price { get; set; }
+            public decimal day_used { get; set; }
+            public decimal night_used { get; set; }
+        }
+        public ActionResult Calculate(int id)
+        {
+            //int cost = 400;
+            
+        var result = db.bills.Where(a => a.id == id).ToArray();
+            var chto_to_tam = from a in db.contracts
+                              where a.id_client == id
+                              select a.id_tariff;
+            string chto_to_tam2 = chto_to_tam.ToString();
+            
+            
+            var e = from a in db.tariffs
+                    where a.id == Convert.ToInt32(chto_to_tam2)
+                    select new 
+                    {
+                        a
+                    };
+            var list = new List<Tariff>();
+            foreach(var c in e)
+            {
+                list.Add(new Tariff()
+                {
+                    day_price = c.a.day_price,
+                    night_price = c.a.night_price,
+                });
+            }
+           // var ee = e.Select(s => new { s.day_price, s.night_price}).ToList();
+            var used = from a in db.collectors
+                       where a.id_client == id
+                       select new 
+                       {
+                          a
+                       };
+            foreach (var c in used)
+            {
+                list.Add(new Tariff()
+                {
+                    day_used = c.a.day_used,
+                    night_used = c.a.night_used,
+                });
+            }
+            //     var usedlist = used.Select(s => new { s.day_used, s.night_used }).ToList();
+            //decimal day_price = Convert.ToDecimal(ee[0]);
+            //decimal night_price = Convert.ToDecimal(ee[1]);
+            //decimal day_used = Convert.ToDecimal(usedlist[0]);
+            //decimal night_used = Convert.ToDecimal(usedlist[1]);
+            //  decimal payment = day_price *day_used + night_price *night_used;
+            decimal payment = list[0].day_price * list[1].day_used+ list[0].night_price * list[1].night_used;
+            return View(payment);
+        
+    }
 
         // GET: bills/Details/5
         public ActionResult Details(int? id)
@@ -40,6 +98,7 @@ namespace EnergyCompany.Controllers
         public ActionResult Create()
         {
             ViewBag.id_client = new SelectList(db.clients, "id", "name");
+            ViewBag.id_collector = new SelectList(db.collectors, "id", "id");
             return View();
         }
 
@@ -48,7 +107,7 @@ namespace EnergyCompany.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_client,id,payment")] bill bill)
+        public ActionResult Create([Bind(Include = "id_client,id,payment,id_collector")] bill bill)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +117,7 @@ namespace EnergyCompany.Controllers
             }
 
             ViewBag.id_client = new SelectList(db.clients, "id", "name", bill.id_client);
+            ViewBag.id_collector = new SelectList(db.collectors, "id", "id", bill.id_collector);
             return View(bill);
         }
 
@@ -74,6 +134,7 @@ namespace EnergyCompany.Controllers
                 return HttpNotFound();
             }
             ViewBag.id_client = new SelectList(db.clients, "id", "name", bill.id_client);
+            ViewBag.id_collector = new SelectList(db.collectors, "id", "id", bill.id_collector);
             return View(bill);
         }
 
@@ -82,7 +143,7 @@ namespace EnergyCompany.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_client,id,payment")] bill bill)
+        public ActionResult Edit([Bind(Include = "id_client,id,payment,id_collector")] bill bill)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +152,7 @@ namespace EnergyCompany.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.id_client = new SelectList(db.clients, "id", "name", bill.id_client);
+            ViewBag.id_collector = new SelectList(db.collectors, "id", "id", bill.id_collector);
             return View(bill);
         }
 

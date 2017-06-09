@@ -27,6 +27,14 @@
             @Html.DisplayFor(model => model.client.name)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.collector.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.collector.id)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
@@ -34,7 +42,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Назад", "Index")
         </div>
     }
 </div>

@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f76c235d5970448b91d2848bad73f54f" Name="Diagram1">
-        <EntityTypeShape EntityType="EnergyDBModel.bill" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EnergyDBModel.bill" Width="1.5" PointX="2.375" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EnergyDBModel.client" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EnergyDBModel.collector" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="EnergyDBModel.contract" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
@@ -14,6 +14,7 @@
         <AssociationConnector Association="EnergyDBModel.fk_collectors_clients" ManuallyRouted="false" />
         <AssociationConnector Association="EnergyDBModel.fk_contracts_clients" ManuallyRouted="false" />
         <AssociationConnector Association="EnergyDBModel.fk_contracts_tariffs" ManuallyRouted="false" />
+        <AssociationConnector Association="EnergyDBModel.fk_bills_collectors" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

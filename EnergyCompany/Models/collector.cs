@@ -18,6 +18,15 @@ using System;
 public partial class collector
 {
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public collector()
+    {
+
+        this.bills = new HashSet<bill>();
+
+    }
+
+
     public int id { get; set; }
 
     public int id_client { get; set; }
@@ -29,6 +38,10 @@ public partial class collector
 
 
     public virtual client client { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<bill> bills { get; set; }
 
 }
 

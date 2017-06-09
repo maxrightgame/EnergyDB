@@ -21,6 +21,12 @@ namespace EnergyCompany.Controllers
             return View(contracts.ToList());
         }
 
+        public ActionResult Compute()
+        {
+
+            return View();
+        }
+
         // GET: contracts/Details/5
         public ActionResult Details(int? id)
         {

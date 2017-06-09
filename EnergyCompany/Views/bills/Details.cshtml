@@ -26,9 +26,17 @@
             @Html.DisplayFor(model => model.client.name)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.collector.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.collector.id)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Назад", "Index")
 </p>

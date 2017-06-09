@@ -13,7 +13,7 @@ namespace EnergyCompany.Controllers
     public class clientsController : Controller
     {
         private EnergyDBEntities3 db = new EnergyDBEntities3();
-
+        
         // GET: clients
         public ActionResult Index()
         {
