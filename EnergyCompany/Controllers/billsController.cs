@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using EnergyCompany.Models;
-using System.Linq;
+
 namespace EnergyCompany.Controllers
 {
     public class billsController : Controller

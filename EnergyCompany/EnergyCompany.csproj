@@ -359,6 +359,12 @@
     <Content Include="Views\clients\Search.cshtml" />
     <Content Include="Views\contracts\Search.cshtml" />
     <Content Include="Views\tariffs\Search.cshtml" />
+    <Content Include="Views\Home\Query1.cshtml" />
+    <Content Include="Views\Home\Query2.cshtml" />
+    <Content Include="Views\Home\Query3.cshtml" />
+    <Content Include="Views\Home\Query4.cshtml" />
+    <Content Include="Views\Home\Query5.cshtml" />
+    <Content Include="Views\Home\Query6.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

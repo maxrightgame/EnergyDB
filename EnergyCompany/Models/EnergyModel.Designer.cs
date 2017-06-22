@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "D:\EnergyDB-master\EnergyDB-master\EnergyCompany\Models\EnergyModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\maxri\documents\visual studio 2017\Projects\EnergyCompany\EnergyCompany\Models\EnergyModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

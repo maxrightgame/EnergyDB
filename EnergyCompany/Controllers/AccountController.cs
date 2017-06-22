@@ -340,7 +340,7 @@ namespace EnergyCompany.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
-                    // Если у пользователя нет учетной записи, то ему предлагается создать ее
+                    // Если у пользователя нет учетной записи, то ему предлагается Create ее
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });

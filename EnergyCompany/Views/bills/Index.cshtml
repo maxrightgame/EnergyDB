@@ -7,7 +7,7 @@
 <h2>Счета</h2>
 
 <p>
-    @Html.ActionLink("Создать", "Create")
+    @Html.ActionLink("Create", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,7 +37,7 @@
         <td>
             @if (User.IsInRole("Admin"))
             { 
-            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) 
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) 
             @Html.ActionLink("Подробно", "Details", new { id=item.id }) 
             @Html.ActionLink("Удалить", "Delete", new { id=item.id }) 
             @Html.ActionLink("Вычислить", "Calculate", new { id_client = item.id_client, id = item.id })

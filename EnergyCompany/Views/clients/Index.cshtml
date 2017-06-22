@@ -21,7 +21,7 @@
 }
 
 <p>
-    @Html.ActionLink("Создать", "Create")
+    @Html.ActionLink("Create", "Create")
 </p>
 <table class="table">
     <tr>
@@ -46,12 +46,9 @@
             @Html.DisplayFor(modelItem => item.adress)
         </td>
         <td>
-            @if (User.IsInRole("Admin")) 
-                {
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) 
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) 
                 @Html.ActionLink("Детали", "Details", new { id = item.id }) 
                 @Html.ActionLink("Удалить", "Delete", new { id = item.id }) 
-            }
         </td>
     </tr>
 }

@@ -1,8 +1,67 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная страница";
 }
 
+<div class="jumbotron">
+    <h1>База данных энергосбыта</h1>
+    <ul>
+        @using (Html.BeginForm("Query1", "Home"))
+        {
+            <li>
+                Вывести клиентов с тарифом
+                <input type="text" name="query1Text" />
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            </li>
+        }
 
+        @using (Html.BeginForm("Query2", "Home"))
+        {
+            <li>
+                Вывести клиентов, чьи договоры заключены с
+                <input type="date" class="datepicker" name="query1Time" style="height: 30px; width: 150px" value="1997-11-18" />
+                по
+                <input type="date" class="datepicker" name="query2Time" style="height: 30px; width: 150px" value=@DateTime.Now.ToString("yyyy-MM-dd") />
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            </li>
+        }
+        @using (Html.BeginForm("Query3", "Home"))
+        {
+            <li>
+                Вывести клиентов, чьи счета равны или превышают
+                <input type="text" name="query3decimal" />
+                р.
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            </li>
+        }
+        @using (Html.BeginForm("Query4", "Home"))
+        {
+            <li>
+                Вывести клиентов, чей дневной расход равен или превышает
+                <input type="text" name="query4decimal" />
+                кВт
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            </li>
+        }
+        @using (Html.BeginForm("Query5", "Home"))
+        {
+            <li>
+                Вывести клиентов, чей ночной расход равен или превышает
+                <input type="text" name="query5decimal" />
+                кВт
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            </li>
+        }
+        @using (Html.BeginForm("Query6", "Home"))
+        {
+            <li>
+                Вывести клиентов и их тарифы с адресом
+                <input type="text" name="query6text" />
+                <input type="submit" value="Выполнить" class="btn btn-default" />
+            </li>
+        }
+
+    </ul>
+</div>
 
 
 
@@ -21,24 +80,24 @@
 
 
 @*@using (Html.BeginForm("SearchComplex", "Home"))
-{
-    <div class="col-md-12" style="padding-left: 0">
-        <input type="text" name="clientname" />
-        <label>Имя клиента</label>
-    </div>
+    {
         <div class="col-md-12" style="padding-left: 0">
-            <input type="text" name="tariffname" />
-            <label>Название тарифа</label>
+            <input type="text" name="clientname" />
+            <label>Имя клиента</label>
         </div>
-                <div>
-                    <input type="date" class="datepicker" name="date_start" value="2000-01-01" /> @*дата заказа
-                    <input type="date" class="datepicker" name="date_end" value=@DateTime.Now.ToString("yyyy-MM-dd") />
-                    <label>Дата заказа</label>
-                </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12" style="padding-left: 0">
-                            <input type="submit" value="Поиск" class="btn btn-default" />
-                        </div>
+            <div class="col-md-12" style="padding-left: 0">
+                <input type="text" name="tariffname" />
+                <label>Название тарифа</label>
+            </div>
+                    <div>
+                        <input type="date" class="datepicker" name="date_start" value="2000-01-01" /> @*дата заказа
+                        <input type="date" class="datepicker" name="date_end" value=@DateTime.Now.ToString("yyyy-MM-dd") />
+                        <label>Дата заказа</label>
                     </div>
-}*@
+
+                        <div class="form-group">
+                            <div class="col-md-12" style="padding-left: 0">
+                                <input type="submit" value="Поиск" class="btn btn-default" />
+                            </div>
+                        </div>
+    }*@

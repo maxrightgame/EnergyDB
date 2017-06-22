@@ -19,34 +19,41 @@ namespace EnergyCompany.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Query1(String query1text)  //вывести с определенным тарифом
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var result = db.contracts.Include(c => c.client).Include(c => c.tariff).Where(c => c.tariff.name.ToLower().Contains(query1text.ToLower())).ToArray();
+            return View(result);
         }
 
-        public ActionResult Contact()
+        public ActionResult Query2(DateTime query1time, DateTime query2time)  //вывести с определенной датой заключения
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var result = db.contracts.Where(c => c.date_start >= query1time && c.date_end <= query2time).ToArray();
+            return View(result);
         }
 
-        public ActionResult SearchComplex(string clientname, string tariffname, DateTime date_start, DateTime date_end)
+        public ActionResult Query3(decimal query3decimal) //вывести с определенным размером счета
         {
-            var result = db.contracts.Where(a => a.date_start >= date_start && a.date_end <= date_end).ToArray();
-
-            if (clientname.Trim() != "")
-            {
-                result = result.Where((a => a.client.name.ToString().ToLower().Contains(clientname.ToLower().Trim()))).ToArray();
-            }
-            if (tariffname.Trim() != "")
-            {
-                result = result.Where((a => a.tariff.name.ToString().ToLower().Contains(tariffname.ToLower().Trim()))).ToArray();
-            }
-
-            return View();
+            var result = db.bills.Where(c => c.payment >= query3decimal).ToArray();
+            return View(result);
         }
+
+        public ActionResult Query4(decimal query4decimal)  //вывести с определенным значением на дневном счетчике
+        {
+            var result = db.collectors.Include(c => c.client).Where(c => c.day_used >= query4decimal).ToArray();
+            return View(result);
+        }
+
+        public ActionResult Query5(decimal query5decimal)  //вывести с определенным значением на ночном счетчике
+        {
+            var result = db.collectors.Include(c => c.client).Where(c => c.night_used >= query5decimal).ToArray();
+            return View(result);
+        }
+
+        public ActionResult Query6(String query6text)
+        {
+            var result = db.contracts.Include(c => c.client).Where(c => c.client.adress.ToLower().Contains(query6text.ToLower())).ToArray(); //вывести клиентов с таким-то адресом и их тариф
+            return View(result);
+        }
+
     }
 }
