@@ -20,6 +20,12 @@ namespace EnergyCompany.Controllers
             return View(db.clients.ToList());
         }
 
+        public ActionResult Search(String searchText)
+        {
+            var result = db.clients.Where(a => a.name.ToLower().Contains(searchText.ToLower()));
+            return View(result);
+        }
+
         // GET: clients/Details/5
         public ActionResult Details(int? id)
         {

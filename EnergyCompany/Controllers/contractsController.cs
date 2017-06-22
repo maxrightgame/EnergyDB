@@ -21,10 +21,10 @@ namespace EnergyCompany.Controllers
             return View(contracts.ToList());
         }
 
-        public ActionResult Compute()
+        public ActionResult Search(String searchText)
         {
-
-            return View();
+            var result = db.clients.Where(a => a.name.ToLower().Contains(searchText.ToLower()));
+            return View(result);
         }
 
         // GET: contracts/Details/5

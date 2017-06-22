@@ -1,24 +1,38 @@
 ﻿@model IEnumerable<EnergyCompany.Models.tariff>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Тарифы";
 }
 
-<h2>Index</h2>
+<h2>Тарифы</h2>
+
+@using (Html.BeginForm("Search", "tariffs"))
+{
+    <div class="form-group">
+        <div class="col-md-12" style="padding-left: 0">
+            <input type="text" name="searchText" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12" style="padding-left: 0">
+            <input type="submit" value="Поиск" class="btn btn-default" />
+        </div>
+    </div>
+}
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+            Название тарифа
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.day_price)
+            Цена днем, кВт/ч
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.night_price)
+            Цена ночью, кВт/ч
         </th>
         <th></th>
     </tr>
@@ -35,9 +49,12 @@
             @Html.DisplayFor(modelItem => item.night_price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @if (User.IsInRole("Admin"))
+            { 
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) 
+            @Html.ActionLink("Детали", "Details", new { id=item.id }) 
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
+            }
         </td>
     </tr>
 }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<EnergyCompany.Models.bill>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Счета";
 }
 
-<h2>Index</h2>
+<h2>Счета</h2>
 
 <p>
     @Html.ActionLink("Создать", "Create")
@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.payment)
+            Счет
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.client.name)
+            Имя клиента
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.collector.id)
+            Номер счетчика
         </th>
         <th></th>
     </tr>
@@ -35,10 +35,13 @@
             @Html.DisplayFor(modelItem => item.collector.id)
         </td>
         <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Подробно", "Details", new { id=item.id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
-            @Html.ActionLink("Удалить", "Calculate", new { id = item.id })
+            @if (User.IsInRole("Admin"))
+            { 
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) 
+            @Html.ActionLink("Подробно", "Details", new { id=item.id }) 
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id }) 
+            @Html.ActionLink("Вычислить", "Calculate", new { id_client = item.id_client, id = item.id })
+            }
         </td>
     </tr>
 }

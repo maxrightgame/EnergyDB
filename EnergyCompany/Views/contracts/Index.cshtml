@@ -1,27 +1,41 @@
 ﻿@model IEnumerable<EnergyCompany.Models.contract>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Договоры";
 }
 
-<h2>Index</h2>
+<h2>Договоры</h2>
+
+@using (Html.BeginForm("Search", "contracts"))
+{
+    <div class="form-group">
+        <div class="col-md-12" style="padding-left: 0">
+            <input type="text" name="searchText" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12" style="padding-left: 0">
+            <input type="submit" value="Поиск" class="btn btn-default" />
+        </div>
+    </div>
+}
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.date_start)
+            Дата заключения
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date_end)
+            Дата окончания
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.client.name)
+            Имя клиента
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tariff.name)
+            Имя тарифа
         </th>
         <th></th>
     </tr>
@@ -41,9 +55,12 @@
             @Html.DisplayFor(modelItem => item.tariff.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @if (User.IsInRole("Admin"))
+            { 
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) 
+            @Html.ActionLink("Details", "Details", new { id=item.id }) 
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            }
         </td>
     </tr>
 }

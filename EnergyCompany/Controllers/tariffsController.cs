@@ -20,8 +20,14 @@ namespace EnergyCompany.Controllers
             return View(db.tariffs.ToList());
         }
 
-        // GET: tariffs/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Search(String searchText)
+        {
+            var result = db.tariffs.Where(a => a.name.ToLower().Contains(searchText.ToLower()));
+            return View(result);
+        }
+
+            // GET: tariffs/Details/5
+            public ActionResult Details(int? id)
         {
             if (id == null)
             {

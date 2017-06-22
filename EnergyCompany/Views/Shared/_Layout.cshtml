@@ -22,14 +22,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li> @*Сюда засунем авторизацию*@
                     <li>@Html.ActionLink("Клиенты", "Index", "clients")</li>
                     <li>@Html.ActionLink("Тарифы", "Index", "tariffs")</li>
                     <li>@Html.ActionLink("Контракты", "Index", "contracts")</li>
                     <li>@Html.ActionLink("Счетчики", "Index", "collectors")</li>
                     <li>@Html.ActionLink("Счета", "Index", "bills")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -27,55 +27,26 @@ namespace EnergyCompany.Controllers
             public decimal day_used { get; set; }
             public decimal night_used { get; set; }
         }
-        public ActionResult Calculate(int id)
+        public ActionResult Calculate(int id_client, int id)
         {
             //int cost = 400;
-            
-        var result = db.bills.Where(a => a.id == id).ToArray();
-            var chto_to_tam = from a in db.contracts
-                              where a.id_client == id
-                              select a.id_tariff;
-            string chto_to_tam2 = chto_to_tam.ToString();
-            
-            
-            var e = from a in db.tariffs
-                    where a.id == Convert.ToInt32(chto_to_tam2)
-                    select new 
-                    {
-                        a
-                    };
-            var list = new List<Tariff>();
-            foreach(var c in e)
+            var temp = db.contracts.Include(c => c.client).Include(c => c.tariff).Include(c => c.client.collectors).Where(c => c.client.id == id_client).ToArray();
+            var contract = temp[0];
+            var collectors = contract.client.collectors.ToArray();
+            for (int i = 0; i < collectors.Length; i++)
             {
-                list.Add(new Tariff()
+                var collector = collectors[i];
+
+                var newPayment = new bill()
                 {
-                    day_price = c.a.day_price,
-                    night_price = c.a.night_price,
-                });
+                    id_client = contract.id_client,
+                    id_collector = contract.client.collectors.ToArray()[i].id,
+                    payment = collector.day_used * contract.tariff.day_price + collector.night_used * contract.tariff.night_price
+                };
+                db.bills.Add(newPayment);
             }
-           // var ee = e.Select(s => new { s.day_price, s.night_price}).ToList();
-            var used = from a in db.collectors
-                       where a.id_client == id
-                       select new 
-                       {
-                          a
-                       };
-            foreach (var c in used)
-            {
-                list.Add(new Tariff()
-                {
-                    day_used = c.a.day_used,
-                    night_used = c.a.night_used,
-                });
-            }
-            //     var usedlist = used.Select(s => new { s.day_used, s.night_used }).ToList();
-            //decimal day_price = Convert.ToDecimal(ee[0]);
-            //decimal night_price = Convert.ToDecimal(ee[1]);
-            //decimal day_used = Convert.ToDecimal(usedlist[0]);
-            //decimal night_used = Convert.ToDecimal(usedlist[1]);
-            //  decimal payment = day_price *day_used + night_price *night_used;
-            decimal payment = list[0].day_price * list[1].day_used+ list[0].night_price * list[1].night_used;
-            return View(payment);
+            db.SaveChanges();
+            return View(0);
         
     }
 

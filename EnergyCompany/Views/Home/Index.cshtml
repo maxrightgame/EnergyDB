@@ -2,13 +2,25 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-@using (Html.BeginForm("SearchComplex", "Home"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@using (Html.BeginForm("SearchComplex", "Home"))
 {
     <div class="col-md-12" style="padding-left: 0">
         <input type="text" name="clientname" />
@@ -19,7 +31,7 @@
             <label>Название тарифа</label>
         </div>
                 <div>
-                    <input type="date" class="datepicker" name="date_start" value="2000-01-01" /> @*дата заказа*@
+                    <input type="date" class="datepicker" name="date_start" value="2000-01-01" /> @*дата заказа
                     <input type="date" class="datepicker" name="date_end" value=@DateTime.Now.ToString("yyyy-MM-dd") />
                     <label>Дата заказа</label>
                 </div>
@@ -29,4 +41,4 @@
                             <input type="submit" value="Поиск" class="btn btn-default" />
                         </div>
                     </div>
-}
+}*@

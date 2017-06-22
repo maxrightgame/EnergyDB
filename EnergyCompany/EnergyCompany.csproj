@@ -356,6 +356,9 @@
     <Content Include="Views\bills\Details.cshtml" />
     <Content Include="Views\bills\Edit.cshtml" />
     <Content Include="Views\bills\Index.cshtml" />
+    <Content Include="Views\clients\Search.cshtml" />
+    <Content Include="Views\contracts\Search.cshtml" />
+    <Content Include="Views\tariffs\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

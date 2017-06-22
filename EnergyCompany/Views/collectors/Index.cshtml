@@ -1,27 +1,27 @@
 ﻿@model IEnumerable<EnergyCompany.Models.collector>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Счетчики";
 }
 
-<h2>Index</h2>
+<h2>Счетчики</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.id)
+            Номер счетчика
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.day_used)
+            Потрачено днем кВт
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.night_used)
+            Потрачено ночью кВт
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.client.name)
+            Имя клиента
         </th>
         <th></th>
     </tr>
@@ -41,9 +41,12 @@
             @Html.DisplayFor(modelItem => item.client.name)
         </td>
         <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Детали", "Details", new { id=item.id }) |
+            @if (User.IsInRole("Admin"))
+            { 
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) 
+            @Html.ActionLink("Детали", "Details", new { id=item.id }) 
             @Html.ActionLink("Удалить", "Delete", new { id=item.id })
+            }
         </td>
     </tr>
 }
