@@ -17,12 +17,13 @@ namespace EnergyCompany.Controllers
         // GET: clients
         public ActionResult Index()
         {
+            ViewBag.stick = " | ";
             return View(db.clients.ToList());
         }
 
         public ActionResult Search(String searchText)
         {
-            var result = db.clients.Where(a => a.name.ToLower().Contains(searchText.ToLower()));
+            var result = db.clients.Where(a => a.name.ToLower().Contains(searchText.ToLower())).ToArray();
             return View(result);
         }
 

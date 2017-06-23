@@ -17,7 +17,7 @@
         @using (Html.BeginForm("Query2", "Home"))
         {
             <li>
-                Вывести клиентов, чьи договоры заключены с
+                Вывести клиентов, чьи договоры находятся в промежутке с
                 <input type="date" class="datepicker" name="query1Time" style="height: 30px; width: 150px" value="1997-11-18" />
                 по
                 <input type="date" class="datepicker" name="query2Time" style="height: 30px; width: 150px" value=@DateTime.Now.ToString("yyyy-MM-dd") />

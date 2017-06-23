@@ -9,7 +9,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Имя клиента")
+            Дата заключения
+        </th>
+        <th>
+            Дата окончания
+        </th>
+        <th>
+            Имя клиента
         </th>
         <th></th>
     </tr>
@@ -18,8 +24,15 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.client.name)
+                @Html.DisplayFor(modelItem => item.date_start)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_end)
+            </td>
+            <td>
+                @Html.ActionLink(@Html.DisplayFor(modelItem => item.client.name).ToString(), "Search", "clients", new { searchText = item.client.name }, null)
+            </td>
+
             <td>
                 @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |

@@ -17,6 +17,7 @@ namespace EnergyCompany.Controllers
         // GET: collectors
         public ActionResult Index()
         {
+            ViewBag.stick = " | ";
             var collectors = db.collectors.Include(c => c.client);
             return View(collectors.ToList());
         }

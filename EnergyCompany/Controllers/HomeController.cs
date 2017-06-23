@@ -49,9 +49,9 @@ namespace EnergyCompany.Controllers
             return View(result);
         }
 
-        public ActionResult Query6(String query6text)
+        public ActionResult Query6(String query6text)  //вывести клиентов с таким-то адресом и их тариф
         {
-            var result = db.contracts.Include(c => c.client).Where(c => c.client.adress.ToLower().Contains(query6text.ToLower())).ToArray(); //вывести клиентов с таким-то адресом и их тариф
+            var result = db.contracts.Include(c => c.client).Where(c => c.client.adress.ToLower().Contains(query6text.ToLower())).ToArray(); 
             return View(result);
         }
 

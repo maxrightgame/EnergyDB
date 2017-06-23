@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using EnergyCompany.Models;
+using System;
 
 namespace EnergyCompany.Controllers
 {
@@ -14,6 +15,7 @@ namespace EnergyCompany.Controllers
         // GET: bills
         public ActionResult Index()
         {
+            ViewBag.stick = " | ";
             var bills = db.bills.Include(b => b.client).Include(b => b.collector);
             return View(bills.ToList());
         }
@@ -43,7 +45,7 @@ namespace EnergyCompany.Controllers
                 db.bills.Add(newPayment);
             }
             db.SaveChanges();
-            return View(0);
+            return View();
         
     }
 

@@ -17,6 +17,7 @@ namespace EnergyCompany.Controllers
         // GET: tariffs
         public ActionResult Index()
         {
+            ViewBag.stick = " | ";
             return View(db.tariffs.ToList());
         }
 

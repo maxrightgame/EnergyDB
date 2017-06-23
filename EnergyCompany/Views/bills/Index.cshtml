@@ -37,9 +37,9 @@
         <td>
             @if (User.IsInRole("Admin"))
             { 
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) 
-            @Html.ActionLink("Подробно", "Details", new { id=item.id }) 
-            @Html.ActionLink("Удалить", "Delete", new { id=item.id }) 
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id }) @ViewBag.stick
+            @Html.ActionLink("Подробно", "Details", new { id=item.id }) @ViewBag.stick
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id }) @ViewBag.stick
             @Html.ActionLink("Вычислить", "Calculate", new { id_client = item.id_client, id = item.id })
             }
         </td>
